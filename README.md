@@ -10,3 +10,5 @@ single request handler
 -start server with node bin/www
 
 -localhost:9000
+
+-search test file at localhost:9000/test.txt
