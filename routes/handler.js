@@ -4,14 +4,14 @@ var config = require('./config');
 var fs = require('fs');
 var crypto = require('crypto');
 
-var md5sum = crypto.createHash('md5');
+var md5sum = crypto.createHash(config.transform);
 
 router.get('/', function(req, res){
 
 	fs.exists(req.query.file, function(exists) {
 	  if (exists) {
 	    var rstream = fs.createReadStream(req.query.file);
-		var wstream = fs.createWriteStream('file.hashed');
+		var wstream = fs.createWriteStream(config.basedir + 'hashed.txt');
 
 		rstream.on('data', function(d) {
 	  		md5sum.update(d);
@@ -24,10 +24,6 @@ router.get('/', function(req, res){
 		});
 
 		rstream.pipe(wstream)  // writes to myfile.encrypted
-		rstream.on('finish', function () {  // finished
-			    console.log('done encrypting');
-		});
-
 
 	  }
 	  else {
@@ -36,6 +32,5 @@ router.get('/', function(req, res){
 	});
 })
 
-console.log(config.transform);
 
 module.exports = router;

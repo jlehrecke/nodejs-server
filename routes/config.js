@@ -1,5 +1,5 @@
 module.exports = {
-	transform: "md5 -q %file%",
-	basedir: "."
+	transform: "md5",
+	basedir: "./"
 }
 
