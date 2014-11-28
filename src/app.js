@@ -1,20 +1,21 @@
 var express = require('express');
-var path = require('path');
+var exec = require('shelljs').exec;
 var logger = require('morgan');
-var bodyParser = require('body-parser');
-var routes = require('./routes/handler');
-var config = require('./routes/config');
+var config = require('./config');
 
 var app = express();
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('*', function(req, res) {
+    var file = config.basedir + req.path;
+    var cmd = config.transform;
+    var process = [cmd, file].join(' ');
 
-app.use('/', routes);
+    var output = exec(process, {silent:true}).output;
+    res.type('text/plain');
+    res.send(200, output);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
