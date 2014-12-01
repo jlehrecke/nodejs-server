@@ -1,7 +1,7 @@
 var express = require('express');
 var exec = require('shelljs').exec;
 var logger = require('morgan');
-var config = require('./config');
+var config = require('../etc/config');
 
 var app = express();
 

@@ -12,3 +12,5 @@ single request handler
 -localhost:9000
 
 -search test file at localhost:9000/?file=test.txt
+
+-file processing configuration is in etc/config.json
