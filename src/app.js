@@ -2,6 +2,7 @@ var express = require('express');
 var exec = require('shelljs').exec;
 var logger = require('morgan');
 var config = require('../etc/config');
+var debug = require('debug')('handler');
 
 var app = express();
 
@@ -11,6 +12,8 @@ app.get('*', function(req, res) {
     var file = config.basedir + req.path;
     var cmd = config.transform;
     var process = [cmd, file].join(' ');
+
+    debug('executing process: ' + process);
 
     var output = exec(process, {silent:true}).output;
     res.type('text/plain');
