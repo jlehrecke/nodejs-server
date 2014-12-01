@@ -17,7 +17,7 @@ app.get('*', function(req, res) {
 
     var output = exec(process, {silent:true}).output;
     res.type(config.content_type);
-    res.send(200, output);
+    res.status(200).send(output);
 });
 
 // catch 404 and forward to error handler
