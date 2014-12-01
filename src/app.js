@@ -8,7 +8,7 @@ var app = express();
 
 app.use(logger('dev'));
 
-app.get('*', function(req, res) {
+app.get('*', function(req, res, next) {
     var file = config.basedir + req.path;
     var cmd = config.transform;
     var process = [cmd, file].join(' ');
@@ -18,13 +18,6 @@ app.get('*', function(req, res) {
     var output = exec(process, {silent:true}).output;
     res.type(config.content_type);
     res.status(200).send(output);
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
 });
 
 // error handlers
