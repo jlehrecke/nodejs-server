@@ -16,7 +16,7 @@ app.get('*', function(req, res) {
     debug('executing process: ' + process);
 
     var output = exec(process, {silent:true}).output;
-    res.type('text/plain');
+    res.type(config.content_type);
     res.send(200, output);
 });
 
