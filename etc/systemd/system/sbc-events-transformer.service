@@ -1,0 +1,13 @@
+[Service]
+ExecStart=/opt/sbc-events-transformer/bin/www
+WorkingDirectory=/opt/sbc-events-transformer
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=sbc-events-transformer
+User=node-web
+Group=node-web
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
